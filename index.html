@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca Digital IB</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #f8f9fa;
+            --accent-color: #ffc107;
+            --text-color: #333;
+            --light-text: #fff;
+            --border-color: #dee2e6;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --favorite-color: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f5f7fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light-text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0, 86, 179, 0.8), rgba(0, 86, 179, 0.8)), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80') center/cover;
+            color: var(--light-text);
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            margin-right: 0.5rem;
+        }
+        
+        .subject-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .subject-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .subject-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .subject-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        .drive-link {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .drive-link:hover {
+            background-color: #004494;
+        }
+        
+        .drive-link i {
+            margin-right: 0.5rem;
+        }
+        
+        .resources {
+            margin-top: 1rem;
+        }
+        
+        .resource-category {
+            margin-bottom: 1rem;
+        }
+        
+        .resource-category h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .resource-list {
+            list-style: none;
+            padding-left: 1rem;
+        }
+        
+        .resource-list li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .resource-list li:before {
+            content: "•";
+            color: var(--accent-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .resource-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .resource-link:hover {
+            color: #004494;
+            text-decoration: underline;
+        }
+        
+        .footer {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .footer-links a {
+            color: var(--light-text);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Estilos para la sección de Links Funcionales */
+        .functional-links {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .links-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .links-title {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+        }
+        
+        .view-toggle {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .view-btn {
+            background-color: var(--secondary-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .view-btn.active {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+        }
+        
+        .view-btn:hover {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+        }
+        
+        .favorites-section {
+            margin-bottom: 2rem;
+            display: none;
+        }
+        
+        .favorites-section.active {
+            display: block;
+        }
+        
+        .favorites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .categories-section {
+            display: block;
+        }
+        
+        .categories-section.hidden {
+            display: none;
+        }
+        
+        .category-group {
+            margin-bottom: 2rem;
+        }
+        
+        .category-title {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+        
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .link-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        
+        .link-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .link-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+        
+        .link-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.3rem;
+        }
+        
+        .link-icon {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+        }
+        
+        .link-description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.8rem;
+        }
+        
+        .link-url {
+            display: flex;
+            align-items: center;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        
+        .link-url:hover {
+            color: #004494;
+            text-decoration: underline;
+        }
+        
+        .link-url i {
+            margin-right: 0.3rem;
+        }
+        
+        .favorite-btn {
+            background: none;
+            border: none;
+            color: #ccc;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .favorite-btn.active {
+            color: var(--favorite-color);
+        }
+        
+        .favorite-btn:hover {
+            color: var(--favorite-color);
+        }
+        
+        .no-favorites {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-color);
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0;
+                text-align: center;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .subject-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .drive-link {
+                margin-top: 0.5rem;
+            }
+            
+            .links-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .links-grid, .favorites-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">Biblioteca Digital IB</div>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul id="mainMenu">
+                    <li><a href="#matematicas">Matemáticas</a></li>
+                    <li><a href="#lengua">Lengua y Literatura</a></li>
+                    <li><a href="#historia">Historia</a></li>
+                    <li><a href="#ciencias">Ciencias</a></li>
+                    <li><a href="#links-funcionales">Links Funcionales</a></li>
+                    <li><a href="#general">Biblioteca General</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Biblioteca Digital IB</h1>
+            <p>Recursos educativos para estudiantes del Bachillerato Internacional</p>
+        </div>
+    </section>
+
+    <main class="container">
+        <!-- Sección de Links Funcionales -->
+        <section id="links-funcionales" class="section">
+            <h2 class="section-title"><i class="fas fa-link"></i> Links Funcionales</h2>
+            
+            <div class="functional-links">
+                <div class="links-header">
+                    <h3 class="links-title">Recursos Externos para Estudio</h3>
+                    <div class="view-toggle">
+                        <button class="view-btn active" id="categoriesView">Categorías</button>
+                        <button class="view-btn" id="favoritesView">Favoritos</button>
+                    </div>
+                </div>
+                
+                <div class="categories-section active" id="categoriesSection">
+                    <div class="category-group">
+                        <h4 class="category-title"><i class="fas fa-tools"></i> Herramientas de Productividad</h4>
+                        <div class="links-grid">
+                            <div class="link-card" data-id="evernote">
+                                <div class="link-header">
+                                    <div>
+                                        <div class="link-title">Evernote</div>
+                                        <div class="link-description">Organiza notas, ideas y listas de tareas</div>
+                                    </div>
+                                    <button class="favorite-btn" data-id="evernote">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                                <a href="https://evernote.com" class="link-url" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> evernote.com
+                                </a>
+                            </div>
+                            
+                            <div class="link-card" data-id="notion">
+                                <div class="link-header">
+                                    <div>
+                                        <div class="link-title">Notion</div>
+                                        <div class="link-description">Espacio de trabajo todo en uno</div>
+                                    </div>
+                                    <button class="favorite-btn" data-id="notion">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                                <a href="https://notion.so" class="link-url" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> notion.so
+                                </a>
+                            </div>
+                            
+                            <div class="link-card" data-id="todoist">
+                                <div class="link-header">
+                                    <div>
+                                        <div class="link-title">Todoist</div>
+                                        <div class="link-description">Gestor de tareas y proyectos</div>
+                                    </div>
+                                    <button class="favorite-btn" data-id="todoist">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                                <a href="https://todoist.com" class="link-url" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> todoist.com
+                                </a>
+                            </div>
+                            
+                            <div class="link-card" data-id="trello">
+                                <div class="link-header">
+                                    <div>
+                                        <div class="link-title">Trello</div>
+                                        <div class="link-description">Organización visual de proyectos</div>
+                                    </div>
+                                    <button class="favorite-btn" data-id="trello">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                                <a href="https://trello.com" class="link-url" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> trello.com
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="category-group">
+                        <h4 class="category-title"><i class="fas fa-database"></i> Bases de Datos Académicas</h4>
+                        <div class="links-grid">
+                            <div class="link-card" data-id="google-scholar">
+                                <div class="link-header">
+                                    <div>
+                                        <div class="link-title">Google Scholar</div>
+                                        <div class="link-description">Búsqueda de literatura académica</div>
+                                    </div>
+                                    <button class="favorite-btn" data-id="google-scholar">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                                <a href="https://scholar.google.com" class="link-url" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> scholar.google.com
+                                </a>
+                            </div>
+                            
+                            <div class="link-card" data-id="jstor">
+                                <div class="link-header">
+                                    <div>
+                                        <div class="link-title">JSTOR</div>
+                                        <div class="link-description">Acceso a libros, revistas y fuentes primarias</div>
+                                    </div>
+                                    <button class="favorite-btn" data-id="jstor">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                                <a href="https://www.jstor.org" class="link-url" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> jstor.org
+                                </a>
+                            </div>
+                            
+                            <div class="link-card" data-id="pubmed">
+                                <div class="link-header">
+                                    <div>
+                                        <div class="link-title">PubMed</div>
+                                        <div class="link-description">Base de datos de literatura médica y biomédica</div>
+                                    </div>
+                                    <button class="favorite-btn" data-id="pubmed">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                                <a href="https://pubmed.ncbi.nlm.nih.gov" class="link-url" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> pubmed.ncbi.nlm.nih.gov
+                                </a>
+                            </div>
+                            
+                            <div class="link-card" data-id="sciencedirect">
+                                <div class="link-header">
+                                    <div>
+                                        <div class="link-title">ScienceDirect</div>
+                                        <div class="link-description">Base de datos de literatura científica y médica</div>
+                                    </div>
+                                    <button class="favorite-btn" data-id="sciencedirect">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                                <a href="https://www.sciencedirect.com" class="link-url" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> sciencedirect.com
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="category-group">
+                        <h4 class="category-title"><i class="fas fa-graduation-cap"></i> Plataformas de Aprendizaje</h4>
+                        <div class="links-grid">
+                            <div class="link-card" data-id="coursera">
+                                <div class="link-header">
+                                    <div>
+                                        <div class="link-title">Coursera</div>
+                                        <div class="link-description">Cursos en línea de universidades y empresas</div>
+                                    </div>
+                                    <button class="favorite-btn" data-id="coursera">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                                <a href="https://www.coursera.org" class="link-url" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> coursera.org
+                                </a>
+                            </div>
+                            
+                            <div class="link-card" data-id="edx">
+                                <div class="link-header">
+                                    <div>
+                                        <div class="link-title">edX</div>
+                                        <div class="link-description">Cursos de las mejores universidades del mundo</div>
+                                    </div>
+                                    <button class="favorite-btn" data-id="edx">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                                <a href="https://www.edx.org" class="link-url" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> edx.org
+                                </a>
+                            </div>
+                            
+                            <div class="link-card" data-id="khan-academy">
+                                <div class="link-header">
+                                    <div>
+                                        <div class="link-title">Khan Academy</div>
+                                        <div class="link-description">Lecciones gratuitas en matemáticas, ciencias y más</div>
+                                    </div>
+                                    <button class="favorite-btn" data-id="khan-academy">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                                <a href="https://www.khanacademy.org" class="link-url" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> khanacademy.org
+                                </a>
+                            </div>
+                            
+                            <div class="link-card" data-id="duolingo">
+                                <div class="link-header">
+                                    <div>
+                                        <div class="link-title">Duolingo</div>
+                                        <div class="link-description">Aprende idiomas de forma gratuita</div>
+                                    </div>
+                                    <button class="favorite-btn" data-id="duolingo">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                                <a href="https://www.duolingo.com" class="link-url" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> duolingo.com
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="category-group">
+                        <h4 class="category-title"><i class="fas fa-quote-right"></i> Referencias y Citas</h4>
+                        <div class="links-grid">
+                            <div class="link-card" data-id="zotero">
+                                <div class="link-header">
+                                    <div>
+                                        <div class="link-title">Zotero</div>
+                                        <div class="link-description">Gestor de referencias bibliográficas</div>
+                                    </div>
+                                    <button class="favorite-btn" data-id="zotero">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                                <a href="https://www.zotero.org" class="link-url" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> zotero.org
+                                </a>
+                            </div>
+                            
+                            <div class="link-card" data-id="mendeley">
+                                <div class="link-header">
+                                    <div>
+                                        <div class="link-title">Mendeley</div>
+                                        <div class="link-description">Gestor de referencias y red académica</div>
+                                    </div>
+                                    <button class="favorite-btn" data-id="mendeley">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                                <a href="https://www.mendeley.com" class="link-url" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> mendeley.com
+                                </a>
+                            </div>
+                            
+                            <div class="link-card" data-id="easybib">
+                                <div class="link-header">
+                                    <div>
+                                        <div class="link-title">EasyBib</div>
+                                        <div class="link-description">Generador de citas y bibliografías</div>
+                                    </div>
+                                    <button class="favorite-btn" data-id="easybib">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                                <a href="https://www.easybib.com" class="link-url" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> easybib.com
+                                </a>
+                            </div>
+                            
+                            <div class="link-card" data-id="cite-this-for-me">
+                                <div class="link-header">
+                                    <div>
+                                        <div class="link-title">Cite This For Me</div>
+                                        <div class="link-description">Generador de citas y bibliografías</div>
+                                    </div>
+                                    <button class="favorite-btn" data-id="cite-this-for-me">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                                <a href="https://www.citethisforme.com" class="link-url" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> citethisforme.com
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="category-group">
+                        <h4 class="category-title"><i class="fas fa-sticky-note"></i> Organización y Notas</h4>
+                        <div class="links-grid">
+                            <div class="link-card" data-id="one-note">
+                                <div class="link-header">
+                                    <div>
+                                        <div class="link-title">Microsoft OneNote</div>
+                                        <div class="link-description">Aplicación de notas digitales</div>
+                                    </div>
+                                    <button class="favorite-btn" data-id="one-note">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                                <a href="https://www.onenote.com" class="link-url" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> onenote.com
+                                </a>
+                            </div>
+                            
+                            <div class="link-card" data-id="bear">
+                                <div class="link-header">
+                                    <div>
+                                        <div class="link-title">Bear</div>
+                                        <div class="link-description">Aplicación de notas para macOS e iOS</div>
+                                    </div>
+                                    <button class="favorite-btn" data-id="bear">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                                <a href="https://bear.app" class="link-url" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> bear.app
+                                </a>
+                            </div>
+                            
+                            <div class="link-card" data-id="roam-research">
+                                <div class="link-header">
+                                    <div>
+                                        <div class="link-title">Roam Research</div>
+                                        <div class="link-description">Herramienta para tomar notas conectadas</div>
+                                    </div>
+                                    <button class="favorite-btn" data-id="roam-research">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                                <a href="https://roamresearch.com" class="link-url" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> roamresearch.com
+                                </a>
+                            </div>
+                            
+                            <div class="link-card" data-id="obsidian">
+                                <div class="link-header">
+                                    <div>
+                                        <div class="link-title">Obsidian</div>
+                                        <div class="link-description">Base de conocimiento personal</div>
+                                    </div>
+                                    <button class="favorite-btn" data-id="obsidian">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                                <a href="https://obsidian.md" class="link-url" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> obsidian.md
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="favorites-section" id="favoritesSection">
+                    <h4 class="category-title"><i class="fas fa-heart"></i> Tus Favoritos</h4>
+                    <div class="favorites-grid" id="favoritesGrid">
+                        <div class="no-favorites">No has agregado ningún enlace a favoritos aún.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resto de las secciones existentes -->
+        <section id="matematicas" class="section">
+            <h2 class="section-title"><i class="fas fa-calculator"></i> Matemáticas</h2>
+            
+            <div class="subject-card">
+                <div class="subject-header">
+                    <h3 class="subject-title">Google Drive Principal</h3>
+                    <a href="https://drive.google.com/drive/folders/1ca50hHWkhRtBFXtJLiuWz0UhrXSajSls?usp=drive_link" class="drive-link" target="_blank">
+                        <i class="fab fa-google-drive"></i> Acceder
+                    </a>
+                </div>
+            </div>
+            
+            <div class="subject-card">
+                <div class="subject-header">
+                    <h3 class="subject-title">AA NM y AE</h3>
+                </div>
+                
+                <div class="resources">
+                    <div class="resource-category">
+                        <h4>Google Drive Específico</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://drive.google.com/drive/folders/1qhG3QWEX3ff5lt1iSvckg1a1x19mlR_W?usp=drive_link" class="resource-link" target="_blank">AA</a></li>
+                            <li><a href="https://drive.google.com/drive/folders/1-OzAMy8Bffmxj-QL_caxxCLS1KwgapMz?usp=drive_link" class="resource-link" target="_blank">AE</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Guías de estudio</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://drive.google.com/file/d/10_LhsfVgiTXOBzpB1dV_mblLtSMlGefx/view?usp=drive_link" class="resource-link" target="_blank">Guía oficial de Matemáticas AA NM</a></li>
+                            <li><a href="https://sites.google.com/view/coarinos-/ibdp/matemáticas" class="resource-link" target="_blank">Recursos COAR</a></li>
+                            <li><a href="https://ib-dead.weebly.com/ib-math.html" class="resource-link" target="_blank">Páginas de ayuda para fórmulas y conceptos</a></li>
+                            <li><a href="https://www.christosnikolaidis.com/en/maa" class="resource-link" target="_blank">Christos Nikolaidis</a></li>
+                            <li><a href="https://drive.google.com/file/d/1XV4MDI0-t2FhjMLbjWV-FAOWpLV9mCnq/view" class="resource-link" target="_blank">Ayudas con la investigación</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Ejercicios resueltos</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://drive.google.com/file/d/1mr8FFnL4FK6WKLoMA-uX64cXMQPnXse3/view" class="resource-link" target="_blank">Ejercicios resueltos 1</a></li>
+                            <li><a href="https://pixeldrain.com/u/8d1zVADj" class="resource-link" target="_blank">Ejercicios resueltos 2</a></li>
+                            <li><a href="https://www.mrmacmaths.com" class="resource-link" target="_blank">Mr Mac Maths</a></li>
+                            <li><a href="https://www-revisionvillage-com.translate.goog/ib-math/analysis-and-approaches-sl/?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=tc&_x_tr_hist=true" class="resource-link" target="_blank">Revision Village</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Repositorio de exámenes</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://drive.google.com/file/d/18odVSIxGlF62aPVskUfxb-UOXPkEKp88/view?usp=drive_link" class="resource-link" target="_blank">AA NM P1</a></li>
+                            <li><a href="https://drive.google.com/file/d/1qwGci-Y25YOfDBeSbDaebNJeMG2S6HWj/view?usp=drive_link" class="resource-link" target="_blank">AA NM P2</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Material gratuito</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://global.oup.com/education/secondary/curricula/ib-diploma/mathematics/ib-matematicas/?region=international&srsltid=AfmBOopr_0roa4xHctF9ZI9HJHNKQKhK_ZQoCUbZiyBIqU5O8mC4Eaas" class="resource-link" target="_blank">Recursos Oxford</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Canales de ayuda en YouTube</h4>
+                        <ul class="resource-list">
+                            <li><a href="http://www.youtube.com/@eltraductor_ok" class="resource-link" target="_blank">El Traductor</a></li>
+                            <li><a href="http://www.youtube.com/@MatesMike" class="resource-link" target="_blank">Mates Mike</a></li>
+                            <li><a href="http://www.youtube.com/@todomatematica" class="resource-link" target="_blank">Todo Matemática</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Herramientas tecnológicas</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://www.wolframalpha.com/" class="resource-link" target="_blank">Wolfram Alpha</a></li>
+                            <li><a href="https://www.desmos.com/calculator?lang=es" class="resource-link" target="_blank">Desmos</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Recursos adicionales</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://drive.google.com/drive/folders/1ZyhYe_MHmqaRcELQjCRtVOAhHUVgQqoy?usp=drive_link" class="resource-link" target="_blank">Ingeniería</a></li>
+                            <li><a href="https://drive.google.com/drive/folders/1CBzE0oTOegt9g2VjIE7_FbA8adCpQSeZ?usp=drive_link" class="resource-link" target="_blank">Cálculo</a></li>
+                            <li><a href="https://drive.google.com/drive/folders/1H7dxGmMrH01TW3xzTpdLNwOgHgEB7PsJ?usp=drive_link" class="resource-link" target="_blank">Matemáticas</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="lengua" class="section">
+            <h2 class="section-title"><i class="fas fa-book"></i> Lengua y Literatura NS</h2>
+            
+            <div class="subject-card">
+                <div class="subject-header">
+                    <h3 class="subject-title">Google Drive Principal</h3>
+                    <a href="https://drive.google.com/drive/folders/1Y2HNDX7KllVYDOY7kgfuMMDLdGR20bC6?usp=drive_link" class="drive-link" target="_blank">
+                        <i class="fab fa-google-drive"></i> Acceder
+                    </a>
+                </div>
+            </div>
+            
+            <div class="subject-card">
+                <div class="subject-header">
+                    <h3 class="subject-title">Recursos</h3>
+                </div>
+                
+                <div class="resources">
+                    <div class="resource-category">
+                        <h4>Guías de análisis literario</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://dougslangandlit.blog/20-20" class="resource-link" target="_blank">Doug's Lang and Lit</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Técnicas de escritura</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://drive.google.com/drive/folders/13HopuvdkmeGPT1pxnTiPc2YzWS0OuhQY?usp=drive_link" class="resource-link" target="_blank">Técnicas de escritura</a></li>
+                            <li><a href="https://drive.google.com/file/d/1LEx6tyOOlI1OQ4DqL2H-AFRE1d-kDq0B/view?usp=sharing" class="resource-link" target="_blank">La guía definitiva</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Recursos por género</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://drive.google.com/drive/folders/1UUhOCA6u4js6RGinau4K0w4zAU6A_lKJ?usp=drive_link" class="resource-link" target="_blank">Narrativa</a></li>
+                            <li><a href="https://drive.google.com/drive/folders/1QxFDX8VttlecQgubOtAsdhW-Qb0lbXj1?usp=drive_link" class="resource-link" target="_blank">Lírica</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="historia" class="section">
+            <h2 class="section-title"><i class="fas fa-landmark"></i> Historia NS</h2>
+            
+            <div class="subject-card">
+                <div class="subject-header">
+                    <h3 class="subject-title">Google Drive Principal</h3>
+                    <a href="https://drive.google.com/drive/folders/1wn1gL6eCf-2IsMaESd7n8MewabRkGjnU?usp=drive_link" class="drive-link" target="_blank">
+                        <i class="fab fa-google-drive"></i> Acceder
+                    </a>
+                </div>
+            </div>
+            
+            <div class="subject-card">
+                <div class="subject-header">
+                    <h3 class="subject-title">Recursos</h3>
+                </div>
+                
+                <div class="resources">
+                    <div class="resource-category">
+                        <h4>Colección de libros</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://drive.google.com/drive/folders/1_bLPi16YrHN9Xe5LdO2w-5GBOooIZJxb?usp=drive_link" class="resource-link" target="_blank">Libros de historia</a></li>
+                            <li><a href="https://drive.google.com/drive/folders/1Onp4LrqgAJ6GHtpTVTeNn5oUGSUEJ-1n?usp=drive_link" class="resource-link" target="_blank">Libros en inglés</a></li>
+                            <li><a href="https://drive.google.com/drive/folders/1RN7TwqkVvMXJnkiCexJoVAErHIXxRVXG?usp=drive_link" class="resource-link" target="_blank">Colección general</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Canales de YouTube sugeridos</h4>
+                        <ul class="resource-list">
+                            <li><a href="http://www.youtube.com/@OverSimplified" class="resource-link" target="_blank">OverSimplified</a></li>
+                            <li><a href="http://www.youtube.com/@almuerzahistoria" class="resource-link" target="_blank">Almuerzo con historia</a></li>
+                            <li><a href="http://www.youtube.com/@Atodaleche" class="resource-link" target="_blank">A toda leche</a></li>
+                            <li><a href="http://www.youtube.com/@MemoriasDePez" class="resource-link" target="_blank">Memorias de Pez</a></li>
+                            <li><a href="http://www.youtube.com/@mitsistudio" class="resource-link" target="_blank">Mitsi Studio</a></li>
+                            <li><a href="http://www.youtube.com/@genesis2.24" class="resource-link" target="_blank">Génesis 2.24</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Guías</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://algargos.jimdofree.com/ib-historia-nm-ns" class="resource-link" target="_blank">Guía Algargos</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ciencias" class="section">
+            <h2 class="section-title"><i class="fas fa-flask"></i> Ciencias</h2>
+            
+            <div class="subject-card">
+                <div class="subject-header">
+                    <h3 class="subject-title">Física</h3>
+                    <a href="https://drive.google.com/drive/folders/1DMvsivZR3Gk1qmqxlDPUv-1ef5j0Vucv?usp=sharing" class="drive-link" target="_blank">
+                        <i class="fab fa-google-drive"></i> Acceder
+                    </a>
+                </div>
+                
+                <div class="resources">
+                    <div class="resource-category">
+                        <h4>Para investigaciones</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://drive.google.com/drive/folders/1hbXOk9FUVHAz_hhmkvY8hP8z6s_Qp1WB?usp=drive_link" class="resource-link" target="_blank">Recursos para investigación</a></li>
+                            <li><a href="https://drive.google.com/file/d/1jwx_RFRpsT6GpelxAG1pnJz9TKnrB7T2/view" class="resource-link" target="_blank">Ideas</a></li>
+                            <li><a href="https://drive.google.com/file/d/1aiIjqrakU0if2ru1wKJmn5SCLgNRsY7G/view" class="resource-link" target="_blank">Checklist</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Recursos por temas</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://docs.google.com/document/d/10pA_wf9fhX81hFvqVGxyHls55pVf4d6uBYtsippASJM/" class="resource-link" target="_blank">Definición (Inglés)</a></li>
+                            <li><a href="https://pale-derby-955.notion.site/mechanics-67294d758c884407a472837d319406d8" class="resource-link" target="_blank">Mechanics</a></li>
+                            <li><a href="https://pale-derby-955.notion.site/waves-31187508cdd84e37ac00ea9bc469bdb1" class="resource-link" target="_blank">Waves</a></li>
+                            <li><a href="https://pale-derby-955.notion.site/materials-4de70ba5ea3e4d779ebc2cc58d763f6d" class="resource-link" target="_blank">Materials</a></li>
+                            <li><a href="https://pale-derby-955.notion.site/electric-circuits-2a4ec64476434e2a962d6af217f645c1" class="resource-link" target="_blank">Electric circuits</a></li>
+                            <li><a href="https://drive.google.com/file/d/18R2kXoVlpmmpmGPBQjnX5H8XBsYOVPuA/view" class="resource-link" target="_blank">Quantum & Nuclear</a></li>
+                            <li><a href="https://drive.google.com/file/d/1s1A5G1E7S-_sQ4gPvnCDuhvtPBbpYe_C/view" class="resource-link" target="_blank">Astrophysics D.2</a></li>
+                            <li><a href="https://drive.google.com/file/d/18ZCtIcOpuYKUKJossM7rTnozK_YP_4n6/view" class="resource-link" target="_blank">Astrophysics D.3</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Anotaciones y apuntes</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://drive.google.com/drive/folders/1r1_G8-jajpR8zvV9MdIMAfD1fZKWTTGL?usp=sharing" class="resource-link" target="_blank">Anotaciones (inglés)</a></li>
+                            <li><a href="https://drive.google.com/drive/folders/1n1811pC0LmVOe68iE7nxvFEB8GagrJeq?usp=drive_link" class="resource-link" target="_blank">Apuntes</a></li>
+                            <li><a href="https://fisicayquimicaonline.blogspot.com/p/fisica-ib-nivel-medio.html" class="resource-link" target="_blank">Temas (Español)</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Canales de YouTube</h4>
+                        <ul class="resource-list">
+                            <li><a href="http://www.youtube.com/@eltraductor_ok" class="resource-link" target="_blank">El Traductor</a></li>
+                            <li><a href="http://www.youtube.com/c/F%C3%ADsicadelMal" class="resource-link" target="_blank">Física del Mal</a></li>
+                            <li><a href="http://www.youtube.com/@revisionvillage" class="resource-link" target="_blank">Revision Village</a></li>
+                            <li><a href="http://www.youtube.com/@dateunvlog" class="resource-link" target="_blank">Date un Vlog</a></li>
+                            <li><a href="http://www.youtube.com/@ibwavechannel" class="resource-link" target="_blank">IB Wave Channel</a></li>
+                            <li><a href="http://www.youtube.com/@PhysicsOnline" class="resource-link" target="_blank">Physics Online</a></li>
+                            <li><a href="http://www.youtube.com/@cursosdefisica" class="resource-link" target="_blank">Cursos de Física</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="subject-card">
+                <div class="subject-header">
+                    <h3 class="subject-title">Química</h3>
+                    <a href="https://drive.google.com/drive/folders/1ieOhbakFvZNH8MeNGeojzrsYk3GxZM-6?usp=drive_link" class="drive-link" target="_blank">
+                        <i class="fab fa-google-drive"></i> Acceder
+                    </a>
+                </div>
+                
+                <div class="resources">
+                    <div class="resource-category">
+                        <h4>Recursos</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://drive.google.com/drive/folders/14BkQhoxN3BDEO0uHDLHNSgo_NDOpeXq1?usp=drive_link" class="resource-link" target="_blank">Recursos Química</a></li>
+                            <li><a href="https://drive.google.com/drive/folders/1R8Oy4QMz8YfDU-raUo1nhsy5iyQh-CZg?usp=drive_link" class="resource-link" target="_blank">Recursos adicionales 1</a></li>
+                            <li><a href="https://drive.google.com/drive/folders/1vJ1E0eIdeFQc9V4O8sTvXtYZYdAlrpY8?usp=drive_link" class="resource-link" target="_blank">Recursos adicionales 2</a></li>
+                            <li><a href="https://ibyourwayout.wordpress.com/chemistry-hl" class="resource-link" target="_blank">IB Your Way Out</a></li>
+                            <li><a href="https://ibalchemy.com" class="resource-link" target="_blank">IB Alchemy</a></li>
+                            <li><a href="https://ib-dead.weebly.com/ib-chemistry.html" class="resource-link" target="_blank">IB Dead</a></li>
+                            <li><a href="https://www.masterorganicchemistry.com" class="resource-link" target="_blank">Master Organic Chemistry</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Temas</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://www-savemyexams-com.translate.goog/learning-hub/subject-guides/ib-chemistry-topics/?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=tc&_x_tr_hist=true" class="resource-link" target="_blank">Save My Exams</a></li>
+                            <li><a href="https://drive.google.com/drive/folders/1B0nNAClhr5Cum_MfNLss9p_G3BoFJDNr?usp=drive_link" class="resource-link" target="_blank">Temas 1</a></li>
+                            <li><a href="https://drive.google.com/drive/folders/18yj5zytT6PrJfqf7o-fOFrmSWltDVGuk?usp=drive_link" class="resource-link" target="_blank">Temas 2</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Notas y prácticas</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://drive.google.com/drive/folders/1MI5Ipuh1LJgAqzUZyG1ugkPSdgNmNWMf?usp=drive_link" class="resource-link" target="_blank">Notas HL</a></li>
+                            <li><a href="https://drive.google.com/file/d/1R5GhiLCUbUt9atnx-c5hlR32WlDPnyAT/view" class="resource-link" target="_blank">Ideas</a></li>
+                            <li><a href="https://docs.google.com/document/d/1SQFW0X47boZSyhGeH-RgWnqtxjf6p1d3B4UZZ_TGH-8/edit" class="resource-link" target="_blank">Prácticas de laboratorio</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="subject-card">
+                <div class="subject-header">
+                    <h3 class="subject-title">Biología NM</h3>
+                    <a href="https://drive.google.com/drive/folders/1cfB0QdmvyVkLTJucIEBxFN6rQc9A8Xo4?usp=drive_link" class="drive-link" target="_blank">
+                        <i class="fab fa-google-drive"></i> Acceder
+                    </a>
+                </div>
+                
+                <div class="resources">
+                    <div class="resource-category">
+                        <h4>Recursos generales</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://ib.bioninja.com.au/" class="resource-link" target="_blank">BioNinja</a></li>
+                            <li><a href="https://ib-dead.weebly.com/ib-biology.html" class="resource-link" target="_blank">IB Dead</a></li>
+                            <li><a href="https://ibyourwayout.wordpress.com/biology-hl/" class="resource-link" target="_blank">IB Your Way Out</a></li>
+                            <li><a href="https://drive.google.com/drive/folders/1p-OvOCKdc8LsusyRQwqiBuE-jXbfD3yo?usp=drive_link" class="resource-link" target="_blank">Temas español</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Recursos específicos</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://padlet.com/dasha28/5-3-classification-yckqnjviiqdf2wcx" class="resource-link" target="_blank">Padlet para memorizar clasificaciones</a></li>
+                            <li><a href="https://drive.google.com/file/d/1VxF_lWAWeoVI64spVlkLYpNFczmwfpjz/view" class="resource-link" target="_blank">Notas escritas (todos los temas)</a></li>
+                            <li><a href="https://drive.google.com/drive/folders/1BKmZcvPGP2YI8T9ndC-wTmQoxqJTkv52" class="resource-link" target="_blank">Presentaciones PowerPoint (todos los temas)</a></li>
+                            <li><a href="https://drive.google.com/file/d/1o6LkiBdr3XQvATPAsChPZkcuG9D4cw1C/view" class="resource-link" target="_blank">Notas de biología celular, molecular y de ácidos nucleicos</a></li>
+                            <li><a href="https://drive.google.com/file/d/12Ag4HECkLll-yR-pz4jdwdoCfZxTX3Mp/view" class="resource-link" target="_blank">Notas de genética</a></li>
+                            <li><a href="https://drive.google.com/drive/folders/14xb45vwruhOFMWKHYAl6FgstD0v749Ch" class="resource-link" target="_blank">Notas SL</a></li>
+                            <li><a href="https://drive.google.com/file/d/1Gu7c5NSUENKDMEjH5cFMTScKKle9oGec/view" class="resource-link" target="_blank">Core + Option D</a></li>
+                            <li><a href="https://quizlet.com/loisxm/folders/ib-biology/sets" class="resource-link" target="_blank">Quizlet SL</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Simulaciones y videos</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://www-iitianacademy-com.translate.goog/ib-myp-4-5-chemistry-matter-study-notes/?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=tc" class="resource-link" target="_blank">Notas</a></li>
+                            <li><a href="https://darkoficialeducacion1.blogspot.com/p/simuladores-biologia-ib-may-21.html" class="resource-link" target="_blank">Simulaciones</a></li>
+                            <li><a href="https://www.youtube.com/watch?v=S9EhhFoDbQM&t=4209s" class="resource-link" target="_blank">Monografía de Biología</a></li>
+                            <li><a href="https://sites.google.com/view/coarinos-/ibdp/biología-nm" class="resource-link" target="_blank">COAR</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-palette"></i> Artes</h2>
+            
+            <div class="subject-card">
+                <div class="subject-header">
+                    <h3 class="subject-title">Google Drive Principal</h3>
+                    <a href="https://drive.google.com/drive/folders/1mWAinnYDW0rQq1r6bBpmKBn1VnUb7ZgR?usp=drive_link" class="drive-link" target="_blank">
+                        <i class="fab fa-google-drive"></i> Acceder
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-laptop"></i> Sociedad Digital</h2>
+            
+            <div class="subject-card">
+                <div class="subject-header">
+                    <h3 class="subject-title">Google Drive Principal</h3>
+                    <a href="https://drive.google.com/drive/folders/1CDJOcp8s_ig6PT1nvAa3x3N3OrVPMD7o?usp=drive_link" class="drive-link" target="_blank">
+                        <i class="fab fa-google-drive"></i> Acceder
+                    </a>
+                </div>
+            </div>
+            
+            <div class="subject-card">
+                <div class="subject-header">
+                    <h3 class="subject-title">Recursos</h3>
+                </div>
+                
+                <div class="resources">
+                    <div class="resource-category">
+                        <h4>Material de estudio</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://drive.google.com/drive/folders/1Wz_P5O8hX6atKVKcSdb4g5CUpknXAWBc?usp=drive_link" class="resource-link" target="_blank">Notas</a></li>
+                            <li><a href="https://drive.google.com/drive/folders/1jebv20EbgwWj6Y7r0I0r8QJjc506GV5B?usp=drive_link" class="resource-link" target="_blank">Recursos de estudio</a></li>
+                            <li><a href="https://drive.google.com/drive/folders/1NebUTPRiPsNC9dmlEvMAMfu6NmW3dhgV?usp=drive_link" class="resource-link" target="_blank">Esencial</a></li>
+                            <li><a href="https://drive.google.com/file/d/1YLZ7KqKklzyrKSL-dbhISl7_gc_nH10v/view?usp=classroom_web&authuser=0" class="resource-link" target="_blank">Guía</a></li>
+                            <li><a href="https://drive.google.com/file/d/1UB6v7UGAJKRLM-qRGRHkvnCb_G1BssZY/view?usp=classroom_web&authuser=0" class="resource-link" target="_blank">Libro</a></li>
+                            <li><a href="https://drive.google.com/drive/folders/1AcVPbLVnlj8i9TDeWxduWjsD1xQmt9jt?usp=drive_link" class="resource-link" target="_blank">Estudios ES TISG</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-leaf"></i> Sistemas Ambientales y Sociedades</h2>
+            
+            <div class="subject-card">
+                <div class="subject-header">
+                    <h3 class="subject-title">Google Drive Principal</h3>
+                    <a href="https://drive.google.com/drive/folders/1uqaEhAl4gFvWTZF_w69VVLcyFnF_KsWK?usp=drive_link" class="drive-link" target="_blank">
+                        <i class="fab fa-google-drive"></i> Acceder
+                    </a>
+                </div>
+            </div>
+            
+            <div class="subject-card">
+                <div class="subject-header">
+                    <h3 class="subject-title">Recursos</h3>
+                </div>
+                
+                <div class="resources">
+                    <div class="resource-category">
+                        <h4>Material de estudio</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://drive.google.com/drive/folders/1YzyZYwkTNovffOQ9jyIX0OJgaae0usx2?usp=drive_link" class="resource-link" target="_blank">Notas español</a></li>
+                            <li><a href="https://drive.google.com/drive/folders/1EtyzOroCDRfk3aFbRUVpdpEieS2wY6Qd?usp=drive_link" class="resource-link" target="_blank">IA Samples</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Páginas web de referencia</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://mrkremerscience.com/ess/" class="resource-link" target="_blank">Mr. Kremer Science</a></li>
+                            <li><a href="https://climexhandbook.w.uib.no/handbook/" class="resource-link" target="_blank">Climex Handbook</a></li>
+                            <li><a href="https://sites.google.com/a/wis.edu.hk/ess/home" class="resource-link" target="_blank">WIS ESS</a></li>
+                            <li><a href="https://www.mrgscience.com/ibdp-environmental-systems-and-societies.html" class="resource-link" target="_blank">Mr G Science</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Recursos adicionales</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://drive.google.com/drive/folders/0B9WgJ2fMKfV6flFWQUZxckQxRTRuLU45eHNwN1hNOVpfVk9vVmJGaUN1WUxrZWlfcm9ldlk?resourcekey=0-VpLsD5Xk3mmFiY__LqZRgA" class="resource-link" target="_blank">Recursos Drive 1</a></li>
+                            <li><a href="https://drive.google.com/drive/folders/1vws_BwGUA3NNhBlbNabMEgqxSGvUUPRX" class="resource-link" target="_blank">Recursos Drive 2</a></li>
+                            <li><a href="https://docs.google.com/document/d/15lcTKefdFAGVEzVBBjCWMpvd1_ol-DTc/edit?rtpof=true&sd=true" class="resource-link" target="_blank">Documento guía</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Recursos por temas</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://docs.google.com/presentation/d/1QcePPpBcH23of6HH-xk6i--MIfpSOS1TEAJafdYKscc/edit" class="resource-link" target="_blank">Topic 1</a></li>
+                            <li><a href="https://quizlet.com/albertenechi/folders/ib-ess/sets" class="resource-link" target="_blank">Quizlet</a></li>
+                            <li><a href="https://docs.google.com/document/d/1d6O_Fo25xfTNRsNqS2ekpfJTlkuxF71YY_uTexaiECc/edit" class="resource-link" target="_blank">Case Study Breakdown</a></li>
+                            <li><a href="https://docs.google.com/document/d/1M2iZpI9SjzNizGwQdi7L3TJi5HEe5KQVUwiBNRJ9toM/edit" class="resource-link" target="_blank">Human Systems & Resource Use Notes</a></li>
+                            <li><a href="https://docs.google.com/document/d/1c5OqyIQ6wugawxHzAxxkUCrr-TAr7AV_stRMWnB-Ov0/edit" class="resource-link" target="_blank">Case studies list</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Quizlets adicionales</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://quizlet.com/426175082/environmental-science-environmental-systems-flash-cards/" class="resource-link" target="_blank">Environmental Science</a></li>
+                            <li><a href="https://quizlet.com/454892097/ess-part-2-first-half-flash-cards/" class="resource-link" target="_blank">ESS Part 2 First Half</a></li>
+                            <li><a href="https://quizlet.com/455009992/ess-part-2-second-half-flash-cards/" class="resource-link" target="_blank">ESS Part 2 Second Half</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Recursos de examen</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://docs.google.com/document/d/1tJdg5yL8VjB0Wp6klt2uXDJTBGPsLwiwn58E_9VL9fo/edit" class="resource-link" target="_blank">Last minute exam tips</a></li>
+                            <li><a href="https://docs.google.com/document/d/1OFrEmPnPHG0eWCPQHXQ28KQvi27PeSdUcRigEVspqNc/edit?tab=t.0" class="resource-link" target="_blank">Temas</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-running"></i> CDES (deporte)</h2>
+            
+            <div class="subject-card">
+                <div class="subject-header">
+                    <h3 class="subject-title">Google Drive Principal</h3>
+                    <a href="https://drive.google.com/drive/folders/1BFU9xvfNTtnVZbGFO5dAp6DUCo46vmyn?usp=drive_link" class="drive-link" target="_blank">
+                        <i class="fab fa-google-drive"></i> Acceder
+                    </a>
+                </div>
+            </div>
+            
+            <div class="subject-card">
+                <div class="subject-header">
+                    <h3 class="subject-title">Recursos</h3>
+                </div>
+                
+                <div class="resources">
+                    <div class="resource-category">
+                        <h4>Investigación</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://www.docsity.com/es/docs/cdes-investigacion-individual-magdiel-pacosonco/8354363" class="resource-link" target="_blank">Investigación individual</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Notas</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://docs.google.com/document/d/1UMicyp3WBWxsaMd6pha9AENAVQeYh0dUauD02hfoUm0/edit?tab=t.0" class="resource-link" target="_blank">Notas español</a></li>
+                            <li><a href="https://ibsportsscience.wixsite.com/home" class="resource-link" target="_blank">IB Sports Science</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-briefcase"></i> Gestión empresarial</h2>
+            
+            <div class="subject-card">
+                <div class="subject-header">
+                    <h3 class="subject-title">Google Drive Principal</h3>
+                    <a href="https://drive.google.com/drive/folders/1Y2xZJJDnGAaqEI407r0s4NsswpXwik98?usp=sharing" class="drive-link" target="_blank">
+                        <i class="fab fa-google-drive"></i> Acceder
+                    </a>
+                </div>
+            </div>
+            
+            <div class="subject-card">
+                <div class="subject-header">
+                    <h3 class="subject-title">Recursos</h3>
+                </div>
+                
+                <div class="resources">
+                    <div class="resource-category">
+                        <h4>Notas y apuntes</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://drive.google.com/drive/folders/1AwT-fDPvRDiOE7rPt-kJE8-OspR4Eysy?usp=drive_link" class="resource-link" target="_blank">Notas</a></li>
+                            <li><a href="https://repo.pirateib.xyz/index.php?p=Lewwinski+Business+Management" class="resource-link" target="_blank">Lewwinski resources</a></li>
+                            <li><a href="https://repo.pirateib.xyz/index.php?p=ibGenius" class="resource-link" target="_blank">ibGenius resources</a></li>
+                            <li><a href="https://drive.google.com/file/d/1ZgxwdiNUyVvyo-MRtT-znKSVpVCTfQTm/view" class="resource-link" target="_blank">1.6 Growth and Evolution Notes</a></li>
+                            <li><a href="https://docs.google.com/document/d/1XHfCMZqkH_OWRB8hFvuEqCbyKxhRlu_oZz0IoGlbbQI/edit" class="resource-link" target="_blank">Unit 1 Notes</a></li>
+                            <li><a href="https://docs.google.com/document/d/1aROqYBBMCg1JveoFcmv-CHcehLDGDe7FdLVmpFAuTHg/edit" class="resource-link" target="_blank">Unit 2 Notes</a></li>
+                            <li><a href="https://docs.google.com/document/d/1_JAQx7OsKmAGjO4IZ4jOhnP-RdnEzUF017i3VcCWKa8/edit" class="resource-link" target="_blank">Unit 3 Notes</a></li>
+                            <li><a href="https://docs.google.com/document/d/1s6FS5cNOfhUKQ3nryZ1zOmqcClXjhCxD4m2C9NEgcP8/edit" class="resource-link" target="_blank">Unit 4 Notes</a></li>
+                            <li><a href="https://docs.google.com/document/d/1FKu5a5eANWW_1CTOAqzOfvs7l9LXHqzJYqixk2fJQpA/edit" class="resource-link" target="_blank">Unit 5 Notes</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Recursos web</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://repo.pirateib.xyz/index.php?p=IB+BOOKS%2FGroup+3+-+Individuals+and+Societies%2FBusiness+Management%2FLevel7+Education" class="resource-link" target="_blank">All Level7 Case Study Packs</a></li>
+                            <li><a href="https://www.businessmadeeasy.xyz/" class="resource-link" target="_blank">Business Made Easy</a></li>
+                            <li><a href="https://ibmadeasy.wixsite.com/ibmadeasy/business-management-sl" class="resource-link" target="_blank">IB Made Easy</a></li>
+                            <li><a href="https://ibnotes42teocgiralgo.notion.site/" class="resource-link" target="_blank">IB Notes</a></li>
+                            <li><a href="https://onedrive.live.com/?authkey=%21APyplBpjQ1b6bxM&id=DE8E8A460EF4E2F3%21824&cid=DE8E8A460EF4E2F3" class="resource-link" target="_blank">OneDrive Resources</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Flashcards y definiciones</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://quizlet.com/93036208/ib-business-and-management-sl-and-hl-definitions-flash-cards/" class="resource-link" target="_blank">Definitions in alphabetical order</a></li>
+                            <li><a href="https://quizlet.com/_9wd17t?x=1qqt&i=27huh0" class="resource-link" target="_blank">Chapter 1 Flashcards</a></li>
+                            <li><a href="https://quizlet.com/gb/473029239/topic-1-business-flashcards/" class="resource-link" target="_blank">Chapter 2 Flashcards</a></li>
+                            <li><a href="https://quizlet.com/580533446/chapter-3-flashcards-key-concepts-flash-cards/" class="resource-link" target="_blank">Chapter 3 Flashcards</a></li>
+                            <li><a href="https://quizlet.com/582437401/chapter-4-business-flashcards-marketing-part-1-flash-cards/" class="resource-link" target="_blank">Chapter 4 Flashcards (Part 1)</a></li>
+                            <li><a href="https://quizlet.com/583043161/chapter-4-business-flashcards-marketing-part-2-flash-cards/?new" class="resource-link" target="_blank">Chapter 4 Flashcards (Part 2)</a></li>
+                            <li><a href="https://quizlet.com/583639443/chapter-5-business-flashcards/" class="resource-link" target="_blank">Chapter 5 Flashcards</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>CUEGIS</h4>
+                        <ul class="resource-list">
+                            <li><a href="http://panmore.com/" class="resource-link" target="_blank">Panmore</a></li>
+                            <li><a href="https://dachpian.weebly.com/cuegis-questions.html" class="resource-link" target="_blank">CUEGIS Questions</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Casos de estudio</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://drive.google.com/drive/folders/1EN1AUqiQLA7TS2dHj1NNLcr77b5zzb43?usp=drive_link" class="resource-link" target="_blank">Casos de estudio</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Extended Essay</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://www.ibmastery.com/blog/how-to-structure-a-business-management-extended-essay" class="resource-link" target="_blank">How to structure a Business Management Extended Essay</a></li>
+                            <li><a href="https://www.overleaf.com/read/dzzzmwxkvfcd" class="resource-link" target="_blank">Overleaf</a></li>
+                            <li><a href="https://docs.google.com/document/d/1EUW9Tm9sgjPWnHOEhGkGZEizVSHdcfQQB9Cu-_t3Er4/edit" class="resource-link" target="_blank">Extended Essay Guide</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-language"></i> Inglés</h2>
+            
+            <div class="subject-card">
+                <div class="subject-header">
+                    <h3 class="subject-title">Google Drive Principal</h3>
+                    <a href="https://drive.google.com/drive/folders/1-2dm-m6eJzHHxmEx50nwMjpXLkWa2eHl?usp=drive_link" class="drive-link" target="_blank">
+                        <i class="fab fa-google-drive"></i> Acceder
+                    </a>
+                </div>
+            </div>
+            
+            <div class="subject-card">
+                <div class="subject-header">
+                    <h3 class="subject-title">Recursos</h3>
+                </div>
+                
+                <div class="resources">
+                    <div class="resource-category">
+                        <h4>Material de estudio</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://drive.google.com/drive/folders/12ESBuctgphgwghpB9ryOqf1o_rM39Fcg?usp=drive_link" class="resource-link" target="_blank">Recursos generales</a></li>
+                            <li><a href="https://drive.google.com/drive/folders/1VpVpv4L2omIjmLtYUYKisFw7SMMyFw4x?usp=drive_link" class="resource-link" target="_blank">¿Iniciando?</a></li>
+                            <li><a href="https://drive.google.com/drive/folders/1eLiPHW4xDq43G4qGY1Fjl38ZshieWPTP?usp=drive_link" target="_blank" class="resource-link">Notas</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Canales recomendados</h4>
+                        <ul class="resource-list">
+                            <li><a href="http://www.youtube.com/@Pacho8aIF" class="resource-link" target="_blank">Pacho 8aIF</a></li>
+                            <li><a href="http://www.youtube.com/@inglesparaperezosos" class="resource-link" target="_blank">Inglés para Perezosos</a></li>
+                            <li><a href="http://www.youtube.com/@POCEnglish" class="resource-link" target="_blank">POC English</a></li>
+                            <li><a href="http://www.youtube.com/@EnSimplesPalabras" class="resource-link" target="_blank">En Simples Palabras</a></li>
+                            <li><a href="http://www.youtube.com/@BBCNews" class="resource-link" target="_blank">BBC News</a></li>
+                            <li><a href="http://www.youtube.com/@theenglishspotlight3886" class="resource-link" target="_blank">The English Spotlight</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Preparación para exámenes</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://www.revisionvillage.com/ib-english-b/hl" class="resource-link" target="_blank">Revision Village</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Ayuda adicional</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://www.lingualia.com/es" class="resource-link" target="_blank">Lingualia</a></li>
+                            <li><a href="https://voila.cambridgeone.org/mosaic/skill/listening/home" class="resource-link" target="_blank">Voila Cambridge</a></li>
+                            <li><a href="https://www.cambridgeenglish.org/learning-english/activities-for-learners/b1g057-what-a-great-idea" class="resource-link" target="_blank">Cambridge English</a></li>
+                            <li><a href="https://online.pubhtml5.com/rohc/tapd/#p=2" class="resource-link" target="_blank">PubHTML5</a></li>
+                            <li><a href="https://www.esl-lounge.com/student/first-certificate.php" class="resource-link" target="_blank">ESL Lounge</a></li>
+                            <li><a href="https://test-english.com/grammar-points/b2/inversion-negative-adverbials" class="resource-link" target="_blank">Test-English</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="general" class="section">
+            <h2 class="section-title"><i class="fas fa-book-open"></i> Biblioteca General</h2>
+            
+            <div class="subject-card">
+                <div class="subject-header">
+                    <h3 class="subject-title">Libros</h3>
+                    <a href="https://drive.google.com/drive/folders/1GwJGKkAul89ylkdNJNM7uStiTylg_HtF?usp=drive_link" class="drive-link" target="_blank">
+                        <i class="fab fa-google-drive"></i> Acceder
+                    </a>
+                </div>
+                
+                <div class="resources">
+                    <div class="resource-category">
+                        <h4>Recursos adicionales</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://sites.google.com/view/coarinos-/ibdp/libros" class="resource-link" target="_blank">COAR Libros</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="subject-card">
+                <div class="subject-header">
+                    <h3 class="subject-title">Links de ayuda</h3>
+                </div>
+                
+                <div class="resources">
+                    <div class="resource-category">
+                        <h4>Recursos generales</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://revisiontown2024.pages.dev/#" class="resource-link" target="_blank">Save My Exams</a></li>
+                            <li><a href="https://pestle.pages.dev/app" class="resource-link" target="_blank">Pestle</a></li>
+                            <li><a href="https://view.genially.com/6621c6fa799e720014387577/interactive-content-paper-del-ib-dark-oficial-eduacion" class="resource-link" target="_blank">Past papers</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-category">
+                        <h4>Ejemplos y exámenes</h4>
+                        <ul class="resource-list">
+                            <li><a href="https://www.clastify.com/ia" class="resource-link" target="_blank">Ejemplos</a></li>
+                            <li><a href="https://drive.google.com/drive/folders/1LC4DFaViCOT2JYZcxxMPSK6FgGOLjh_7?usp=drive_link" class="resource-link" target="_blank">Exámenes pasados</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2023 Biblioteca Digital IB. Todos los derechos reservados.</p>
+            <p>Recursos educativos para estudiantes del Bachillerato Internacional</p>
+            <div class="footer-links">
+                <a href="#matematicas">Matemáticas</a>
+                <a href="#lengua">Lengua y Literatura</a>
+                <a href="#historia">Historia</a>
+                <a href="#ciencias">Ciencias</a>
+                <a href="#links-funcionales">Links Funcionales</a>
+                <a href="#general">Biblioteca General</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle menu for mobile
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('mainMenu').classList.toggle('active');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    // Close mobile menu if open
+                    document.getElementById('mainMenu').classList.remove('active');
+                }
+            });
+        });
+
+        // Funcionalidad para la sección de Links Funcionales
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtener elementos del DOM
+            const categoriesView = document.getElementById('categoriesView');
+            const favoritesView = document.getElementById('favoritesView');
+            const categoriesSection = document.getElementById('categoriesSection');
+            const favoritesSection = document.getElementById('favoritesSection');
+            const favoritesGrid = document.getElementById('favoritesGrid');
+            const favoriteButtons = document.querySelectorAll('.favorite-btn');
+            
+            // Cargar favoritos desde localStorage
+            let favorites = JSON.parse(localStorage.getItem('ibFavorites')) || [];
+            
+            // Actualizar estado de los botones de favoritos
+            function updateFavoriteButtons() {
+                favoriteButtons.forEach(button => {
+                    const id = button.getAttribute('data-id');
+                    if (favorites.includes(id)) {
+                        button.classList.add('active');
+                        button.innerHTML = '<i class="fas fa-heart"></i>';
+                    } else {
+                        button.classList.remove('active');
+                        button.innerHTML = '<i class="far fa-heart"></i>';
+                    }
+                });
+            }
+            
+            // Actualizar la vista de favoritos
+            function updateFavoritesView() {
+                if (favorites.length === 0) {
+                    favoritesGrid.innerHTML = '<div class="no-favorites">No has agregado ningún enlace a favoritos aún.</div>';
+                } else {
+                    favoritesGrid.innerHTML = '';
+                    favorites.forEach(id => {
+                        const card = document.querySelector(`.link-card[data-id="${id}"]`);
+                        if (card) {
+                            const clone = card.cloneNode(true);
+                            favoritesGrid.appendChild(clone);
+                        }
+                    });
+                    
+                    // Agregar eventos a los botones de favoritos clonados
+                    const clonedButtons = favoritesGrid.querySelectorAll('.favorite-btn');
+                    clonedButtons.forEach(button => {
+                        button.addEventListener('click', toggleFavorite);
+                    });
+                }
+            }
+            
+            // Cambiar entre vista de categorías y favoritos
+            categoriesView.addEventListener('click', function() {
+                categoriesView.classList.add('active');
+                favoritesView.classList.remove('active');
+                categoriesSection.classList.add('active');
+                categoriesSection.classList.remove('hidden');
+                favoritesSection.classList.remove('active');
+            });
+            
+            favoritesView.addEventListener('click', function() {
+                favoritesView.classList.add('active');
+                categoriesView.classList.remove('active');
+                favoritesSection.classList.add('active');
+                categoriesSection.classList.add('hidden');
+                categoriesSection.classList.remove('active');
+                updateFavoritesView();
+            });
+            
+            // Función para alternar favoritos
+            function toggleFavorite() {
+                const id = this.getAttribute('data-id');
+                const index = favorites.indexOf(id);
+                
+                if (index > -1) {
+                    favorites.splice(index, 1);
+                } else {
+                    favorites.push(id);
+                }
+                
+                // Guardar en localStorage
+                localStorage.setItem('ibFavorites', JSON.stringify(favorites));
+                
+                // Actualizar vistas
+                updateFavoriteButtons();
+                if (favoritesSection.classList.contains('active')) {
+                    updateFavoritesView();
+                }
+            }
+            
+            // Agregar eventos a los botones de favoritos
+            favoriteButtons.forEach(button => {
+                button.addEventListener('click', toggleFavorite);
+            });
+            
+            // Inicializar vistas
+            updateFavoriteButtons();
+        });
+    </script>
+</body>
+</html>
